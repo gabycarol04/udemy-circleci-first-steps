@@ -22,7 +22,9 @@ jobs:
           command: npm install
       - run:
           name: Run Test 
-          command: npm run test
+          command: |
+            npm install -g npm
+            npm --version
 
 workflows:
   deploy-demo:
