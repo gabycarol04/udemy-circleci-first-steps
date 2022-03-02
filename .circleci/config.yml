@@ -23,7 +23,7 @@ jobs:
       - image: cimg/python:3.10-browsers
         environment:
           TEST_DATABASE_URL: postgresql://root@localhost/circle_test
-      - image: cimg/postgres:14.1.0
+      - image: cimg/postgres:14.1-postgis
     steps:
       - checkout
       - run: python --version
