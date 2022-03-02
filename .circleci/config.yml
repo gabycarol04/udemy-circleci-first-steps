@@ -17,17 +17,38 @@ jobs:
     steps:
       - checkout
       - run: node --version
+
+  python-build:
+    docker:
+      - image: cimg/python:3.10-browsers
+        environment:
+          TEST_DATABASE_URL: postgresql://root@localhost/circle_test
+      - image: cimg/postgres:14.1.0
+    steps:
+      - checkout
+      - run: python --version
+      - run: whoami
       - run:
-          name: Install npm dependency
+          name: Creat Table 
           command: |
-            npm install --force
-            npm --version
+            psql
+            -d $TEST_DATABASE_URL \
+            -c "CREATE TABLE test (name char(25));"
       - run:
-          name: Run Test 
-          command: npm run test
+          name: Insert into test table 
+          command: |
+            -d $TEST_DATABASE_URL \
+            -c "INSERT INTO test (name) VALUES ('fern')"
+      - run: 
+          name: Select * from Test
+          command: |
+            psql \
+            -d $TEST_DATABASE_URL \
+            -c "SELECT * FROM test"
 
 workflows:
   deploy-demo:
     jobs:
       - demo-build
       - node-build
+      - python-build
