@@ -19,12 +19,12 @@ jobs:
       - run: node --version
       - run:
           name: Install npm dependency
-          command: npm install
-      - run:
-          name: Run Test 
           command: |
             npm install -g npm
             npm --version
+      - run:
+          name: Run Test 
+          command: npm run test
 
 workflows:
   deploy-demo:
