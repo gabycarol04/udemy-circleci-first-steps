@@ -17,3 +17,9 @@ jobs:
     steps:
       - checkout
       - run: node --version
+
+workflows:
+  deploy-demo:
+    jobs:
+      - demo-build
+      - node-build
