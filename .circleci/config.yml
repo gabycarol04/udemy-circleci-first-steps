@@ -29,6 +29,12 @@ jobs:
       - run: python --version
       - run: whoami
       - run:
+          name: install postgress
+          commnand: |
+            sudo apt-get install postgresql
+            sudo su postgres
+            psql -d postgres -U postgres
+      - run:
           name: Creat Table 
           command: |
             psql
